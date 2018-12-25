@@ -14,7 +14,7 @@ eureka:
     region: default
     registryFetchIntervalSeconds: 5
     serviceUrl:
-      defaultZone: http://localhost:8761/simple-eureka/eureka
+      defaultZone: http://192.168.101.6:8761/simple-eureka/eureka
   instance:
     preferIpAddress: true
     statusPageUrlPath: ${server.servlet.contextPath}/actuator/info
