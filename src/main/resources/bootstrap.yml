@@ -2,12 +2,34 @@ spring:
   application:
     name: simple-config-server
   profiles:
-    active: native
+    active: native, local
   cloud:
     config:
       server:
         native:
           searchLocations: classpath:/config
+
+---
+
+spring:
+  profiles: local
+
+eureka:
+  client:
+    region: default
+    registryFetchIntervalSeconds: 5
+    serviceUrl:
+      defaultZone: http://localhost:8761/simple-eureka/eureka
+  instance:
+    preferIpAddress: true
+    statusPageUrlPath: ${server.servlet.contextPath}/actuator/info
+    metadataMap:
+      configPath: ${server.servlet.contextPath}
+
+---
+
+spring:
+  profiles: native
 
 eureka:
   client:
@@ -20,3 +42,21 @@ eureka:
     statusPageUrlPath: ${server.servlet.contextPath}/actuator/info
     metadataMap:
       configPath: ${server.servlet.contextPath}
+
+---
+
+spring:
+  profiles: aws
+
+eureka:
+  client:
+    region: default
+    registryFetchIntervalSeconds: 5
+    serviceUrl:
+      defaultZone: http://simple-cluster-alb-2055402269.ap-southeast-1.elb.amazonaws.com/simple-eureka/eureka
+  instance:
+    preferIpAddress: true
+    statusPageUrlPath: ${server.servlet.contextPath}/actuator/info
+    metadataMap:
+      configPath: ${server.servlet.contextPath}
+
