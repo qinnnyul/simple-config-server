@@ -2,7 +2,7 @@ spring:
   application:
     name: simple-config-server
   profiles:
-    active: native, local
+    active: native, aws
   cloud:
     config:
       server:
@@ -36,7 +36,7 @@ eureka:
     region: default
     registryFetchIntervalSeconds: 5
     serviceUrl:
-      defaultZone: http://simple-cluster-alb-2055402269.ap-southeast-1.elb.amazonaws.com/simple-eureka/eureka
+      defaultZone: ${EUREKA_URL:http://simple-cluster-alb-2055402269.ap-southeast-1.elb.amazonaws.com/simple-eureka/eureka}
   instance:
     preferIpAddress: true
     statusPageUrlPath: ${server.servlet.contextPath}/actuator/info
